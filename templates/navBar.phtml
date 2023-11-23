@@ -1,0 +1,33 @@
+<?php
+
+
+if (isset($_GET['action']) && !empty($_GET['action'])) {
+    require_once 'router/route.php';
+} else {
+    $view = 'home';
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <a href="?action=concorde">concorde</a>
+        <a href="?action=admin">admin</a>
+    </header>
+
+    <main> <?php
+            require __DIR__ . "/../views/" . $views . ".phtml";
+
+
+            ?> </main>
+</body>
+
+</html>
