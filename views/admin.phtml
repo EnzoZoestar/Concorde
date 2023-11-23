@@ -1,0 +1,39 @@
+<?php
+require __DIR__ . "/../model/class.php";
+
+$concordeManager = new ConcordeManager();
+
+// Récupérer les catégories pour l'affichage et l'ajout de salons
+$categories = $concordeManager->getAllCategories();
+
+// Ajouter une nouvelle catégorie
+if (isset($_POST['newCategory'])) {
+    $newCategory = $_POST['newCategory'];
+    $concordeManager->addNewCategory($newCategory);
+}
+
+// Ajouter un nouveau salon sous une catégorie
+foreach ($categories as $category) {
+    if (isset($_POST['newSalon' . $category['id']])) {
+        $newSalon = $_POST['newSalon' . $category['id']];
+        $categoryID = $category['id'];
+        $concordeManager->addNewSalon($newSalon, $categoryID);
+    }
+}
+?>
+
+<a href="index.php">retour vers concorde</a>
+
+<!-- Ajouter une nouvelle catégorie -->
+<form action="" method="post">
+    <input type="text" name="newCategory" placeholder="Nom de la catégorie" required>
+    <button type="submit">Ajouter Catégorie</button>
+</form>
+
+<!-- Ajouter un nouveau salon sous une catégorie -->
+<?php foreach ($categories as $category) { ?>
+    <form action="" method="post">
+        <input type="text" name="newSalon<?php echo $category['id']; ?>" placeholder="Nom du salon sous <?php echo $category['nom']; ?>" required>
+        <button type="submit">Ajouter Salon</button>
+    </form>
+<?php } ?>
